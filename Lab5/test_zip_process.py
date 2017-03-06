@@ -1,4 +1,4 @@
-from zip_processor import ZipProcessor
+from zip_replace import ZipReplace
 
-file = ZipProcessor('new.zip')
+file = ZipReplace('TestArch.zip', 'from', 'to')
 file.process_zip()

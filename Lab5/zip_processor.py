@@ -8,14 +8,25 @@ class ZipProcessor:
             zipname[:-4])
 
     def _full_filename(self, filename):
+        '''returns full path to file
+        '''
         return os.path.join(self.temp_directory, filename)
 
     def process_zip(self):
+        '''
+        processing zip file
+        '''
         self.unzip_files()
         self.process_files()
         self.zip_files()
     def unzip_files(self):
-        os.mkdir(self.temp_directory)
+        '''
+        opens zip archive
+        '''
+        try:
+            os.mkdir(self.temp_directory)
+        except FileExistsError:
+            pass
         zip = zipfile.ZipFile(self.zipname)
         try:
             zip.extractall(self.temp_directory)
@@ -23,6 +34,9 @@ class ZipProcessor:
             zip.close()
 
     def zip_files(self):
+        '''
+        closes zip archive
+        '''
         file = zipfile.ZipFile(self.zipname, 'w')
         for filename in os.listdir(self.temp_directory):
             file.write(self._full_filename(
